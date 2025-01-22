@@ -18,6 +18,18 @@ class BoardService(
         boardRepository.save(board)
     }
 
+    fun modifyBoard(request: BoardRequest, id : Long) {
+        val board = Board(
+            title = request.title,
+            description = request.description,
+        )
+//        boardRepository.
+    }
+
+    fun deleteBoard(id: Long) {
+        boardRepository.deleteById(id)
+    }
+
     fun getBoards(): List<BoardResponse> {
         // DB 붙여서 가져오는 로직이 있을거임
         return boardRepository.findAll().map { board ->

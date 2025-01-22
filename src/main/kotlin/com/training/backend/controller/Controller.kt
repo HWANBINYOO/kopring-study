@@ -2,12 +2,7 @@ package com.training.backend.controller
 
 import com.training.backend.service.BoardService
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/boards")
@@ -29,6 +24,18 @@ class Controller(
     fun createBoard(@RequestBody request: BoardRequest) {
         boardService.createBoard(request)
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.RESET_CONTENT)
+    fun modifiedBoard(@RequestBody request: BoardRequest, @PathVariable id: Long) {
+        boardService.modifyBoard(request, id)
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteBoard(@PathVariable id: Long) {
+        boardService.deleteBoard(id)
+    }
 }
 
 data class BoardRequest(
@@ -36,9 +43,9 @@ data class BoardRequest(
     val description: String
 )
 
+
 data class BoardResponse(
     val id: Long, // val == 불변,
     var title: String, // var == 가변
     val description: String,
-    //adf
 )
