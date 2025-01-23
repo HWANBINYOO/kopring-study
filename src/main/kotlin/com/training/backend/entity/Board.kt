@@ -5,9 +5,8 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "board")
 class Board(
-    val title: String,
-
-    val description: String,
+    var title: String,
+    var description: String,
 ) {
 
     @Id

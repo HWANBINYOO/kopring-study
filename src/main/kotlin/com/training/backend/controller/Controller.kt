@@ -1,5 +1,6 @@
 package com.training.backend.controller
 
+import com.training.backend.entity.Board
 import com.training.backend.service.BoardService
 import jakarta.persistence.EntityManager
 import org.springframework.http.HttpStatus
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*
 class Controller(
     private val boardService: BoardService, // spring DI, IoC 컨테이너
 ) {
-    private val em: EntityManager? = null //엔티티매니저 주입
 
     @GetMapping("hello")
     fun hello(): String {
@@ -32,10 +32,6 @@ class Controller(
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.RESET_CONTENT)
     fun modifiedBoard(@RequestBody request: BoardRequest, @PathVariable id: Long) {
-        val team: Team = em.find<T>(Team::class.java, teamInfoUpdateDto.getTeamId())
-        team.setTeamName(teamInfoUpdateDto.getChangeTeamName());
-        team.setDetailIntro(teamInfoUpdateDto.getChangeDetailsIntro());
-
         boardService.modifyBoard(request, id)
     }
 
