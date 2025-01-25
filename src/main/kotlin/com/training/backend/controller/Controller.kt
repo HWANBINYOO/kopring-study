@@ -50,6 +50,6 @@ data class BoardRequest(
 
 data class BoardResponse(
     val id: Long, // val == 불변,
-    var title: String, // var == 가변
+    val title: String, // var == 가변
     val description: String,
 )
