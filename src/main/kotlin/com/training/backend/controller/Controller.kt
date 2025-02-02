@@ -1,8 +1,6 @@
 package com.training.backend.controller
 
-import com.training.backend.entity.Board
 import com.training.backend.service.BoardService
-import jakarta.persistence.EntityManager
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -47,9 +45,14 @@ data class BoardRequest(
     val description: String
 )
 
-
 data class BoardResponse(
     val id: Long, // val == 불변,
     val title: String, // var == 가변
     val description: String,
+    val comments: List<CommentResponse>
+)
+
+data class CommentResponse(
+    val userName: String,
+    val content: String,
 )

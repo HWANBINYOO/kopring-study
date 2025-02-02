@@ -2,8 +2,11 @@ package com.training.backend.service
 
 import com.training.backend.controller.BoardRequest
 import com.training.backend.controller.BoardResponse
+import com.training.backend.controller.CommentResponse
 import com.training.backend.entity.Board
+import com.training.backend.entity.Comment
 import com.training.backend.repository.BoardRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
 @Component
@@ -19,7 +22,8 @@ class BoardService(
     }
 
     fun modifyBoard(request: BoardRequest, id: Long) {
-        val board = boardRepository.findById(id).orElse(null)
+        val board = boardRepository.findByIdOrNull(id)
+            ?: throw IllegalArgumentException("Board does not exist")
         board.title = request.title
         board.description = request.description
     }
@@ -29,9 +33,10 @@ class BoardService(
     }
 
     fun getBoards(): List<BoardResponse> {
-        // DB 붙여서 가져오는 로직이 있을거임
+        // DB 붙여서 가져오 로직이 있을거임
         return boardRepository.findAll().map { board ->
-            BoardResponse(board.id, board.title, board.description)
+//            val comments = board.comments.map { comment -> CommentResponse(comment.userName, comment.content) }
+            BoardResponse(board.id, board.title, board.description, emptyList())
         }
     }
 }
